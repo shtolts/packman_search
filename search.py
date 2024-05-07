@@ -87,8 +87,35 @@ def depthFirstSearch(problem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
-    from game import Directions
-    
+
+    # vyuzijeme preddefinovany zasobnik pro ulozeni uzlu pri prochazeni stromu
+    stack = util.Stack()
+
+    visitedNodes = [] #sem budeme ukladat navstivene nody
+
+    # startovaci uzel = (pocatecni stav, [pole akci])
+    startNode = (problem.getStartState(), [])
+
+    stack.push(startNode)
+
+    while stack:
+        currentNode, actions = stack.pop()
+
+        #overime, zda jsme uzel jiz neprochazeli, pripadne pridame do navstivenych
+        if currentNode not in visitedNodes:
+            visitedNodes.append(currentNode)
+
+        #pokud jsme nasli cilovy stav, vratime pole akci a koncime
+        if problem.isGoalState(currentNode):
+            return actions 
+        
+        #pridame dalsi uzly
+        for successor in problem.getSuccessors(currentNode):
+            successorState, successorAction, successorCost = successor
+            nextAction = actions + [successorAction]
+            nextNode = (successorState, nextAction)
+            stack.push(nextNode)
+    return []
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
