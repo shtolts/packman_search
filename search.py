@@ -195,7 +195,7 @@ def uniformCostSearch(problem):
                 successorState, successorAction, successorCost = successor
                 nextActions = actions + [successorAction]
                 nextCost = problem.getCostOfActions(nextActions)
-                nextNode = (successorState, nextActions)
+                nextNode = (successorState, nextActions, nextCost)
                 queue.push(nextNode, nextCost)
     return None
     
