@@ -210,8 +210,46 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # První v tomto příkladu infromované (heuristické) prohledávání
 
+    # využijeme preddefinovanou frontu (viz utils.py) pro uložení uzlů při procházení stromu
+    """
+      PriorityQueue implements a priority queue data structure. Each inserted item
+      has a priority associated with it and the client is usually interested
+      in quick retrieval of the lowest-priority item in the queue. This
+      data structure allows O(1) access to the lowest-priority item.
+    """
+    queue = util.PriorityQueue()
+
+    visitedNodes = [] #sem budeme ukládat navštívené nody
+
+    # startovací uzel = (počátečný stav, [pole akcí], cena)
+    startNode = (problem.getStartState(), [])
+    # spočítáme heuristiku výchozího uzlu
+    startHeuristic = heuristic(problem.getStartState(), problem)
+
+    queue.push(startNode, startHeuristic)
+
+    while queue:
+        currentNode, actions = queue.pop()
+
+        #ověříme, zda jsme uzel již nenavštívili, případně přidáme do navštívených
+        if currentNode not in visitedNodes:
+            visitedNodes.append(currentNode)
+
+            #pokud jsme našli cílový stav, vrátíme pole akcí a končíme
+            if problem.isGoalState(currentNode):
+                return actions 
+            
+            #přidáme následníky do fronty
+            for successor in problem.getSuccessors(currentNode):
+                successorState, successorAction, successorCost = successor
+                nextActions = actions + [successorAction]
+                #zjistíme cenu dalšího uzlu a přičteme k tomu vypočtenou pomocí funkce heuristiku
+                nextCost = problem.getCostOfActions(nextActions) + heuristic(successorState, problem)
+                nextNode = (successorState, nextActions)
+                queue.push(nextNode, nextCost)
+    return None
 
 # Abbreviations
 bfs = breadthFirstSearch
