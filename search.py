@@ -105,17 +105,17 @@ def depthFirstSearch(problem):
         if currentNode not in visitedNodes:
             visitedNodes.append(currentNode)
 
-        #pokud jsme nasli cilovy stav, vratime pole akci a koncime
-        if problem.isGoalState(currentNode):
-            return actions 
-        
-        #pridame dalsi uzly
-        for successor in problem.getSuccessors(currentNode):
-            successorState, successorAction, successorCost = successor
-            nextAction = actions + [successorAction]
-            nextNode = (successorState, nextAction)
-            stack.push(nextNode)
-    return []
+            #pokud jsme nasli cilovy stav, vratime pole akci a koncime
+            if problem.isGoalState(currentNode):
+                return actions 
+            
+            #pridame dalsi uzly
+            for successor in problem.getSuccessors(currentNode):
+                successorState, successorAction, successorCost = successor
+                nextAction = actions + [successorAction]
+                nextNode = (successorState, nextAction)
+                stack.push(nextNode)
+    return None
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
