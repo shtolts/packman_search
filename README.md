@@ -4,6 +4,6 @@ Implementace úloh 1-4 z projektu Packman Search (Dostupné z: https://inst.eecs
 - Question 3 (3 points): Varying the Cost Function
 - Question 4 (3 points): A* search
 
-Implementace každé úlohy je v kódu okomentována.
+Implementace každé úlohy je v kódu okomentována a všechny úlohy byly otestovány.
 
 Semestrální práce z předmětu 4IZ431 studentky shts00. 
