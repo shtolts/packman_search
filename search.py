@@ -194,11 +194,11 @@ def uniformCostSearch(problem):
             for successor in problem.getSuccessors(currentNode):
                 successorState, successorAction, successorCost = successor
                 nextActions = actions + [successorAction]
+                #zjistíme cenu dalšího uzlu
                 nextCost = problem.getCostOfActions(nextActions)
                 nextNode = (successorState, nextActions, nextCost)
                 queue.push(nextNode, nextCost)
     return None
-    
 
 def nullHeuristic(state, problem=None):
     """
