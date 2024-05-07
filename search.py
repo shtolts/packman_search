@@ -116,8 +116,8 @@ def depthFirstSearch(problem):
             #přidáme následníky do zásobníku
             for successor in problem.getSuccessors(currentNode):
                 successorState, successorAction, successorCost = successor
-                nextAction = actions + [successorAction]
-                nextNode = (successorState, nextAction)
+                nextActions = actions + [successorAction]
+                nextNode = (successorState, nextActions)
                 stack.push(nextNode)
     return None
 
@@ -151,8 +151,8 @@ def breadthFirstSearch(problem):
             #přidáme následníky do fronty
             for successor in problem.getSuccessors(currentNode):
                 successorState, successorAction, successorCost = successor
-                nextAction = actions + [successorAction]
-                nextNode = (successorState, nextAction)
+                nextActions = actions + [successorAction]
+                nextNode = (successorState, nextActions)
                 queue.push(nextNode)
     return None
     
@@ -160,7 +160,45 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    #Prohledávání se stejnoměrnou cenou.
+    #Uzly následníků jsou uspořádany ve frontě s prioritou podle nižší ceny přechodu k následníkovi a v tomto pořadí je procházíme.
+
+    # využijeme preddefinovanou frontu (viz utils.py) pro uložení uzlů při procházení stromu
+    """
+      PriorityQueue implements a priority queue data structure. Each inserted item
+      has a priority associated with it and the client is usually interested
+      in quick retrieval of the lowest-priority item in the queue. This
+      data structure allows O(1) access to the lowest-priority item.
+    """
+    queue = util.PriorityQueue()
+
+    visitedNodes = [] #sem budeme ukládat navštívené nody
+
+    # startovací uzel = (počátečný stav, [pole akcí], cena)
+    startNode = (problem.getStartState(), [], 0)
+
+    queue.push(startNode, 0)
+
+    while queue:
+        currentNode, actions, currentCost = queue.pop()
+
+        #ověříme, zda jsme uzel již nenavštívili, případně přidáme do navštívených
+        if currentNode not in visitedNodes:
+            visitedNodes.append(currentNode)
+
+            #pokud jsme našli cílový stav, vrátíme pole akcí a končíme
+            if problem.isGoalState(currentNode):
+                return actions 
+            
+            #přidáme následníky do fronty
+            for successor in problem.getSuccessors(currentNode):
+                successorState, successorAction, successorCost = successor
+                nextActions = actions + [successorAction]
+                nextCost = problem.getCostOfActions(nextActions)
+                nextNode = (successorState, nextActions)
+                queue.push(nextNode, nextCost)
+    return None
+    
 
 def nullHeuristic(state, problem=None):
     """
