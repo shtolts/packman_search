@@ -92,7 +92,7 @@ def depthFirstSearch(problem):
     #Pokud narazí na uzel, z nějž už nelze dále pokračovat (nemá žádné následníky nebo byli všichni navštíveni), vrací se zpět backtrackingem.
     #Pro prohledávání do hloubky se používá zásobník.
 
-    # využijeme preddefinovaný zásobník pro uložení uzlů při procházení stromu
+    # využijeme předdefinovaný zásobník pro uložení uzlů při procházení stromu
     stack = util.Stack()
 
     visitedNodes = [] #sem budeme ukládat navštívené nody
@@ -127,7 +127,7 @@ def breadthFirstSearch(problem):
     # Prohledávání do šířky nejprve projde všechny sousedy startovního uzlu, pak sousedy sousedů atd.
     # Každý uzel navštívíme nejvýše jednou.
 
-    # využijeme preddefinovanou frontu pro uložení uzlů při procházení stromu
+    # využijeme předdefinovanou frontu pro uložení uzlů při procházení stromu
     queue = util.Queue()
 
     visitedNodes = [] #sem budeme ukládat navštívené nody
@@ -163,7 +163,7 @@ def uniformCostSearch(problem):
     #Prohledávání se stejnoměrnou cenou.
     #Uzly následníků jsou uspořádany ve frontě s prioritou podle nižší ceny přechodu k následníkovi a v tomto pořadí je procházíme.
 
-    # využijeme preddefinovanou frontu (viz utils.py) pro uložení uzlů při procházení stromu
+    # využijeme předdefinovanou frontu (viz utils.py) pro uložení uzlů při procházení stromu
     """
       PriorityQueue implements a priority queue data structure. Each inserted item
       has a priority associated with it and the client is usually interested
@@ -212,7 +212,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     "*** YOUR CODE HERE ***"
     # První v tomto příkladu infromované (heuristické) prohledávání
 
-    # využijeme preddefinovanou frontu (viz utils.py) pro uložení uzlů při procházení stromu
+    # využijeme předdefinovanou frontu (viz utils.py) pro uložení uzlů při procházení stromu
     """
       PriorityQueue implements a priority queue data structure. Each inserted item
       has a priority associated with it and the client is usually interested
