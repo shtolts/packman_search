@@ -90,13 +90,14 @@ def depthFirstSearch(problem):
 
     #Prohledávání do hloubky (depth-first search) vždy prohledává prvního následníka každého uzlu, pokud jej ještě nenavštívil. 
     #Pokud narazí na uzel, z nějž už nelze dále pokračovat (nemá žádné následníky nebo byli všichni navštíveni), vrací se zpět backtrackingem.
+    #Pro prohledávání do hloubky se používá zásobník.
 
-    # vyuzijeme preddefinovany zasobnik pro ulozeni uzlu pri prochazeni stromu
+    # využijeme preddefinovaný zásobník pro uložení uzlů při procházení stromu
     stack = util.Stack()
 
-    visitedNodes = [] #sem budeme ukladat navstivene nody
+    visitedNodes = [] #sem budeme ukládat navštívené nody
 
-    # startovaci uzel = (pocatecni stav, [pole akci])
+    # startovací uzel = (počátečný stav, [pole akcí])
     startNode = (problem.getStartState(), [])
 
     stack.push(startNode)
@@ -104,15 +105,15 @@ def depthFirstSearch(problem):
     while stack:
         currentNode, actions = stack.pop()
 
-        #overime, zda jsme uzel jiz neprochazeli, pripadne pridame do navstivenych
+        #ověříme, zda jsme uzel již nenavštívili, případně přidáme do navštívených
         if currentNode not in visitedNodes:
             visitedNodes.append(currentNode)
 
-            #pokud jsme nasli cilovy stav, vratime pole akci a koncime
+            #pokud jsme našli cílový stav, vrátíme pole akcí a končíme
             if problem.isGoalState(currentNode):
                 return actions 
             
-            #pridame nasledniky do zasobniku
+            #přidáme následníky do zásobníku
             for successor in problem.getSuccessors(currentNode):
                 successorState, successorAction, successorCost = successor
                 nextAction = actions + [successorAction]
@@ -123,7 +124,38 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # Prohledávání do šířky nejprve projde všechny sousedy startovního uzlu, pak sousedy sousedů atd.
+    # Každý uzel navštívíme nejvýše jednou.
+
+    # využijeme preddefinovanou frontu pro uložení uzlů při procházení stromu
+    queue = util.Queue()
+
+    visitedNodes = [] #sem budeme ukládat navštívené nody
+
+    # startovací uzel = (počátečný stav, [pole akcí])
+    startNode = (problem.getStartState(), [])
+
+    queue.push(startNode)
+
+    while queue:
+        currentNode, actions = queue.pop()
+
+        #ověříme, zda jsme uzel již nenavštívili, případně přidáme do navštívených
+        if currentNode not in visitedNodes:
+            visitedNodes.append(currentNode)
+
+            #pokud jsme našli cílový stav, vrátíme pole akcí a končíme
+            if problem.isGoalState(currentNode):
+                return actions 
+            
+            #přidáme následníky do fronty
+            for successor in problem.getSuccessors(currentNode):
+                successorState, successorAction, successorCost = successor
+                nextAction = actions + [successorAction]
+                nextNode = (successorState, nextAction)
+                queue.push(nextNode)
+    return None
+    
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
