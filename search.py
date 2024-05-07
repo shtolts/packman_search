@@ -88,6 +88,9 @@ def depthFirstSearch(problem):
     """
     "*** YOUR CODE HERE ***"
 
+    #Prohledávání do hloubky (depth-first search) vždy prohledává prvního následníka každého uzlu, pokud jej ještě nenavštívil. 
+    #Pokud narazí na uzel, z nějž už nelze dále pokračovat (nemá žádné následníky nebo byli všichni navštíveni), vrací se zpět backtrackingem.
+
     # vyuzijeme preddefinovany zasobnik pro ulozeni uzlu pri prochazeni stromu
     stack = util.Stack()
 
@@ -109,7 +112,7 @@ def depthFirstSearch(problem):
             if problem.isGoalState(currentNode):
                 return actions 
             
-            #pridame dalsi uzly
+            #pridame nasledniky do zasobniku
             for successor in problem.getSuccessors(currentNode):
                 successorState, successorAction, successorCost = successor
                 nextAction = actions + [successorAction]
